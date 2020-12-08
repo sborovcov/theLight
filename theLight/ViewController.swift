@@ -9,11 +9,13 @@ import UIKit
 
 class ViewController: UIViewController {
 
-    var isLightOn: Bool = true
+    var lightStatus: Int = 1
     
     override var prefersStatusBarHidden: Bool {
      return true
     }
+    
+    // MARK: - methods
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,13 +24,22 @@ class ViewController: UIViewController {
 
 
     fileprivate func updateUI() {
-        view.backgroundColor = isLightOn ? .white : .black
+        switch lightStatus {
+        case 1:
+            view.backgroundColor = .lightGray
+            lightStatus += 1
+        case 2:
+            view.backgroundColor = .cyan
+            lightStatus += 1
+        default:
+            view.backgroundColor = .magenta
+            lightStatus = 1
+        }
+        //view.backgroundColor = isLightOn ? .white : .black
     }
     
-    @IBAction func buttonPressed() {
-//        isLightOn = !isLightOn
-        isLightOn.toggle() // делает тоже самое, что и строка выше
-        //        print(isLightOn)
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        //isLightOn.toggle()
         updateUI()
     }
 }
